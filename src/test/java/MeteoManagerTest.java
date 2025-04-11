@@ -11,9 +11,22 @@ public class MeteoManagerTest {
         WeatherService mockService = mock(WeatherService.class);
         when(mockService.getCurrentWeather("Paris")).thenReturn("Pluie");
 
+
         MeteoManager manager = new MeteoManager(mockService);
         String result = manager.getMeteoMessage("Paris");
 
         assertEquals("La météo actuelle à Paris est : Pluie", result);
+    }
+
+    @Test
+    public void testGetMeteoAvecTemperature() {
+        WeatherService mockService = mock(WeatherService.class);
+        when(mockService.getCurrentWeather("Nice")).thenReturn("Ensoleillé");
+        when(mockService.getCurrentTemperature("Nice")).thenReturn(28.5);
+
+        MeteoManager manager = new MeteoManager(mockService);
+        String result = manager.getMeteoAvecTemperature("Nice");
+
+        assertEquals("À Nice, il fait 28.5°C avec un temps : Ensoleillé", result);
     }
 }
